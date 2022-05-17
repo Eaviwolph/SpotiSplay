@@ -28,24 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DisplayButton = new System.Windows.Forms.Button();
+            this.ConnectButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // DisplayButton
+            // ConnectButton
             // 
-            this.DisplayButton.Location = new System.Drawing.Point(358, 185);
-            this.DisplayButton.Name = "DisplayButton";
-            this.DisplayButton.Size = new System.Drawing.Size(94, 29);
-            this.DisplayButton.TabIndex = 0;
-            this.DisplayButton.Text = "Display";
-            this.DisplayButton.UseVisualStyleBackColor = true;
-            this.DisplayButton.Click += new System.EventHandler(this.StartDisplay);
+            this.ConnectButton.Location = new System.Drawing.Point(374, 220);
+            this.ConnectButton.Name = "ConnectButton";
+            this.ConnectButton.Size = new System.Drawing.Size(94, 29);
+            this.ConnectButton.TabIndex = 0;
+            this.ConnectButton.Text = "Display";
+            this.ConnectButton.UseVisualStyleBackColor = true;
+            this.ConnectButton.Click += new System.EventHandler(this.StartDisplay);
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(236, 105);
-            this.textBox1.Name = "User";
+            this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(366, 27);
             this.textBox1.TabIndex = 1;
             // 
@@ -56,7 +56,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.DisplayButton);
+            this.Controls.Add(this.ConnectButton);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.ResumeLayout(false);
@@ -66,7 +66,7 @@
 
         #endregion
 
-        private Button DisplayButton;
+        private Button ConnectButton;
         private TextBox textBox1;
     }
 }
