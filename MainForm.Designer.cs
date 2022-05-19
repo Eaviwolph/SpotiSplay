@@ -31,19 +31,19 @@
             this.ConnectButton = new System.Windows.Forms.Button();
             this.ReloadButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.FontGroundButton = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.colorButton = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.FontGroundButton = new System.Windows.Forms.Button();
             this.MoveButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.OpacityUpDown = new System.Windows.Forms.NumericUpDown();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OpacityUpDown)).BeginInit();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // ConnectButton
@@ -89,19 +89,14 @@
             this.panel1.Size = new System.Drawing.Size(419, 213);
             this.panel1.TabIndex = 2;
             // 
-            // FontGroundButton
+            // panel4
             // 
-            this.FontGroundButton.AutoSize = true;
-            this.FontGroundButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.FontGroundButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.FontGroundButton.Location = new System.Drawing.Point(198, 0);
-            this.FontGroundButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.FontGroundButton.Name = "FontGroundButton";
-            this.FontGroundButton.Size = new System.Drawing.Size(113, 37);
-            this.FontGroundButton.TabIndex = 9;
-            this.FontGroundButton.Text = "FontGround Color";
-            this.FontGroundButton.UseVisualStyleBackColor = true;
-            this.FontGroundButton.Click += new System.EventHandler(this.FontGroundButton_Click);
+            this.panel4.Controls.Add(this.colorButton);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(55, 114);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(311, 37);
+            this.panel4.TabIndex = 11;
             // 
             // colorButton
             // 
@@ -116,6 +111,29 @@
             this.colorButton.Text = "BackGround Color";
             this.colorButton.UseVisualStyleBackColor = true;
             this.colorButton.Click += new System.EventHandler(this.backgroungColorButton_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.FontGroundButton);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(55, 151);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(311, 37);
+            this.panel3.TabIndex = 10;
+            // 
+            // FontGroundButton
+            // 
+            this.FontGroundButton.AutoSize = true;
+            this.FontGroundButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.FontGroundButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.FontGroundButton.Location = new System.Drawing.Point(198, 0);
+            this.FontGroundButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.FontGroundButton.Name = "FontGroundButton";
+            this.FontGroundButton.Size = new System.Drawing.Size(113, 37);
+            this.FontGroundButton.TabIndex = 9;
+            this.FontGroundButton.Text = "FontGround Color";
+            this.FontGroundButton.UseVisualStyleBackColor = true;
+            this.FontGroundButton.Click += new System.EventHandler(this.FontGroundButton_Click);
             // 
             // MoveButton
             // 
@@ -167,24 +185,6 @@
             0});
             this.OpacityUpDown.ValueChanged += new System.EventHandler(this.OpacityUpDown_ValueChanged);
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.FontGroundButton);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(55, 151);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(311, 37);
-            this.panel3.TabIndex = 10;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.colorButton);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(55, 114);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(311, 37);
-            this.panel4.TabIndex = 11;
-            // 
             // MainForm
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
@@ -197,13 +197,13 @@
             this.Text = "MainForm";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OpacityUpDown)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }

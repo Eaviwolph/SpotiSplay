@@ -9,6 +9,7 @@ namespace SpotiSplay
         public MainForm()
         {
             InitializeComponent();
+
             spot = new SpotifyServer();
             spotiForm = new SpotiForm(spot);
         }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpotiForm));
             this.MusicNameLabel = new System.Windows.Forms.Label();
             this.MusicArtistLabel = new System.Windows.Forms.Label();
             this.splitBigL = new System.Windows.Forms.SplitContainer();
@@ -145,7 +144,6 @@
             // 
             this.AlbumPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.AlbumPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AlbumPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AlbumPictureBox.Image")));
             this.AlbumPictureBox.Location = new System.Drawing.Point(0, 0);
             this.AlbumPictureBox.Name = "AlbumPictureBox";
             this.AlbumPictureBox.Size = new System.Drawing.Size(120, 118);

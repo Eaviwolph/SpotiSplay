@@ -7,7 +7,9 @@ namespace SpotiSplay
     {
         private static SpotifyClient spotify;
         private static EmbedIOAuthServer _server;
-        
+
+        public static SpotifyServer Instance { get; } = new SpotifyServer();
+
         public SpotifyServer()
         {
             if (File.Exists("token.txt"))
