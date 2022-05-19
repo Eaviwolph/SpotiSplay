@@ -47,7 +47,7 @@ namespace SpotiSplay
             _server.AuthorizationCodeReceived += OnAuthorizationAppCodeReceived;
             _server.ErrorReceived += OnErrorReceived;
 
-            var request = new LoginRequest(_server.BaseUri, "a5671eaed5c04450a0859cec6a0b7db8", LoginRequest.ResponseType.Code)
+            var request = new LoginRequest(_server.BaseUri, File.ReadAllText("tokenSecret.txt"), LoginRequest.ResponseType.Code)
             {
                 Scope = new List<string> { Scopes.UserReadPlaybackState, Scopes.UserModifyPlaybackState, Scopes.UserReadCurrentlyPlaying, Scopes.Streaming, Scopes.UgcImageUpload, Scopes.AppRemoteControl, Scopes.UserReadEmail, Scopes.UserReadPrivate, Scopes.PlaylistReadCollaborative, Scopes.PlaylistModifyPublic, Scopes.PlaylistReadPrivate, Scopes.PlaylistModifyPrivate, Scopes.UserLibraryModify, Scopes.UserLibraryRead, Scopes.UserTopRead, Scopes.UserReadPlaybackPosition, Scopes.UserReadRecentlyPlayed, Scopes.UserFollowRead, Scopes.UserFollowModify }
             };
