@@ -27,7 +27,7 @@ namespace SpotiSplay
             var config = SpotifyClientConfig.CreateDefault();
             var tokenResponse = await new OAuthClient(config).RequestToken(
               new AuthorizationCodeTokenRequest(
-                "a5671eaed5c04450a0859cec6a0b7db8", "a26b2dd7e6cb4369aa096ef0dd5108b0", response.Code, new Uri("http://localhost:5000/callback")
+                File.ReadAllText("tokenSecret.txt"), "a26b2dd7e6cb4369aa096ef0dd5108b0", response.Code, new Uri("http://localhost:5000/callback")
               )
             );
             spotify = new SpotifyClient(tokenResponse.AccessToken);
@@ -60,10 +60,11 @@ namespace SpotiSplay
             var music = await spotify.Player.GetCurrentlyPlaying(c);
             FullTrack f = new FullTrack();
             f.Name = "Error Getting Current Track";
-            if (music.Item != null && music.Item is FullTrack)
+            if (music != null && music.Item != null && music.Item is FullTrack)
             {
                 f = music.Item as FullTrack;
             }
+            
             return f;
         }
     }
