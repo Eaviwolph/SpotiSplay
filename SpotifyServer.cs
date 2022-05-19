@@ -3,7 +3,7 @@ using SpotifyAPI.Web.Auth;
 
 namespace SpotiSplay
 {
-    internal class SpotifyServer
+    public class SpotifyServer
     {
         private static SpotifyClient spotify;
         private static EmbedIOAuthServer _server;
@@ -27,7 +27,7 @@ namespace SpotiSplay
             var config = SpotifyClientConfig.CreateDefault();
             var tokenResponse = await new OAuthClient(config).RequestToken(
               new AuthorizationCodeTokenRequest(
-                File.ReadAllText("tokenSecret.txt"), "a26b2dd7e6cb4369aa096ef0dd5108b0", response.Code, new Uri("http://localhost:5000/callback")
+                "a5671eaed5c04450a0859cec6a0b7db8", File.ReadAllText("tokenSecret.txt"), response.Code, new Uri("http://localhost:5000/callback")
               )
             );
             spotify = new SpotifyClient(tokenResponse.AccessToken);
@@ -41,31 +41,38 @@ namespace SpotiSplay
         }
         public async void ConnectServ()
         {
-            _server = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
-            await _server.Start();
-
-            _server.AuthorizationCodeReceived += OnAuthorizationAppCodeReceived;
-            _server.ErrorReceived += OnErrorReceived;
-
-            var request = new LoginRequest(_server.BaseUri, File.ReadAllText("tokenSecret.txt"), LoginRequest.ResponseType.Code)
+            try
             {
-                Scope = new List<string> { Scopes.UserReadPlaybackState, Scopes.UserModifyPlaybackState, Scopes.UserReadCurrentlyPlaying, Scopes.Streaming, Scopes.UgcImageUpload, Scopes.AppRemoteControl, Scopes.UserReadEmail, Scopes.UserReadPrivate, Scopes.PlaylistReadCollaborative, Scopes.PlaylistModifyPublic, Scopes.PlaylistReadPrivate, Scopes.PlaylistModifyPrivate, Scopes.UserLibraryModify, Scopes.UserLibraryRead, Scopes.UserTopRead, Scopes.UserReadPlaybackPosition, Scopes.UserReadRecentlyPlayed, Scopes.UserFollowRead, Scopes.UserFollowModify }
-            };
-            BrowserUtil.Open(request.ToUri());
+                _server = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
+                await _server.Start();
+
+                _server.AuthorizationCodeReceived += OnAuthorizationAppCodeReceived;
+                _server.ErrorReceived += OnErrorReceived;
+
+                var request = new LoginRequest(_server.BaseUri, "a5671eaed5c04450a0859cec6a0b7db8", LoginRequest.ResponseType.Code)
+                {
+                    Scope = new List<string> { Scopes.UserReadPlaybackState, Scopes.UserModifyPlaybackState, Scopes.UserReadCurrentlyPlaying, Scopes.Streaming, Scopes.UgcImageUpload, Scopes.AppRemoteControl, Scopes.UserReadEmail, Scopes.UserReadPrivate, Scopes.PlaylistReadCollaborative, Scopes.PlaylistModifyPublic, Scopes.PlaylistReadPrivate, Scopes.PlaylistModifyPrivate, Scopes.UserLibraryModify, Scopes.UserLibraryRead, Scopes.UserTopRead, Scopes.UserReadPlaybackPosition, Scopes.UserReadRecentlyPlayed, Scopes.UserFollowRead, Scopes.UserFollowModify }
+                };
+                BrowserUtil.Open(request.ToUri());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+                Application.Exit();
+            }
         }
 
-        public async Task<FullTrack> GetCurrentTrackAsync()
+        public async Task<CurrentlyPlaying> GetCurrentTrackAsync()
         {
             PlayerCurrentlyPlayingRequest c = new PlayerCurrentlyPlayingRequest();
             var music = await spotify.Player.GetCurrentlyPlaying(c);
-            FullTrack f = new FullTrack();
-            f.Name = "Error Getting Current Track";
-            if (music != null && music.Item != null && music.Item is FullTrack)
-            {
-                f = music.Item as FullTrack;
-            }
-            
-            return f;
+            return music;
+        }
+
+        public async Task<string> GetImage(string albumId)
+        {
+            FullAlbum al = await spotify.Albums.Get(albumId);
+            return al.Images[0].Url;
         }
     }
 }
