@@ -10,15 +10,14 @@ namespace SpotiSplay
         public MainForm()
         {
             InitializeComponent();
+            spot = SpotifyServer.Instance;
             spotiForm = new SpotiForm();
+            spotiForm.TopMost = true;
         }
 
         private async void StartDisplay(object sender, EventArgs e)
         {
-            var t = await spot.GetCurrentTrackAsync();
-            
-            MessageBox.Show(t.Name);
-            //MessageBox.Show($"{music.ProgressMs / (1000 * 60)}:{music.ProgressMs % (1000 * 60) / 1000}");
+            spotiForm.Show();
         }
     }
 }

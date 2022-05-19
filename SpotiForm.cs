@@ -15,6 +15,16 @@ namespace SpotiSplay
         public SpotiForm()
         {
             InitializeComponent();
+            SetInterface();
+        }
+
+        public async void SetInterface()
+        {
+            var track = await SpotifyServer.Instance.GetCurrentTrackAsync();
+            if (track != null)
+            {
+                this.MusicNameLabel.Text = track.Name;
+            }
         }
     }
 }

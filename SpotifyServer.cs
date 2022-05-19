@@ -7,8 +7,10 @@ namespace SpotiSplay
     {
         private static SpotifyClient spotify;
         private static EmbedIOAuthServer _server;
-        
-        public SpotifyServer()
+
+        public static SpotifyServer Instance { get; } = new SpotifyServer();
+
+        private SpotifyServer()
         {
             if (File.Exists("token.txt"))
             {
@@ -60,7 +62,7 @@ namespace SpotiSplay
             var music = await spotify.Player.GetCurrentlyPlaying(c);
             FullTrack f = new FullTrack();
             f.Name = "Error Getting Current Track";
-            if (music.Item != null && music.Item is FullTrack)
+            if (music != null && music.Item != null && music.Item is FullTrack)
             {
                 f = music.Item as FullTrack;
             }

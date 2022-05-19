@@ -28,36 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AlbumPicture = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.AlbumPicture)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MusicNameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // AlbumPicture
+            // contextMenuStrip1
             // 
-            this.AlbumPicture.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.AlbumPicture.Location = new System.Drawing.Point(317, 208);
-            this.AlbumPicture.Name = "AlbumPicture";
-            this.AlbumPicture.Size = new System.Drawing.Size(151, 167);
-            this.AlbumPicture.TabIndex = 0;
-            this.AlbumPicture.TabStop = false;
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // MusicNameLabel
+            // 
+            this.MusicNameLabel.AutoSize = true;
+            this.MusicNameLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.MusicNameLabel.Location = new System.Drawing.Point(0, 0);
+            this.MusicNameLabel.Name = "MusicNameLabel";
+            this.MusicNameLabel.Size = new System.Drawing.Size(71, 15);
+            this.MusicNameLabel.TabIndex = 1;
+            this.MusicNameLabel.Text = "MusicName";
             // 
             // SpotiForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.AlbumPicture);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.ClientSize = new System.Drawing.Size(479, 109);
+            this.Controls.Add(this.MusicNameLabel);
             this.Name = "SpotiForm";
-            this.Text = "SpotiForm";
-            this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.AlbumPicture)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private PictureBox AlbumPicture;
+        private TextBox textBox1;
+        private ContextMenuStrip contextMenuStrip1;
+        private Label MusicNameLabel;
     }
 }
