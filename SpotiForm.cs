@@ -15,23 +15,17 @@ namespace SpotiSplay
     public partial class SpotiForm : Form
     {
         private SpotifyServer spot;
-        public SpotiForm(SpotifyServer spot)
+        private MainForm parent;
+        public SpotiForm(SpotifyServer spot, MainForm parent)
         {
             InitializeComponent();
             this.spot = spot;
-            System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer();
-            tmr.Interval = 1000;   // milliseconds
-            tmr.Tick += Tmr_Tick;  // set handler
-            tmr.Start();
+            this.parent = parent;
         }
-
-        private async void Tmr_Tick(object sender, EventArgs e)  //run this logic each timer tick
+        
+        private void Tmr_Tick(object sender, EventArgs e)  //run this logic each timer tick
         {
-            int i = await ActAllStatus();
-            if (i == -1)
-            {
-                Thread.Sleep(1000);
-            }
+            ActAllStatus();
         }
 
         public void SetErrors()
@@ -47,18 +41,16 @@ namespace SpotiSplay
             int sec = time % 60;
             return min.ToString("00") + ":" + sec.ToString("00");
         }
-        public async Task<int> ActAllStatus()
+        public async void ActAllStatus()
         {
             CurrentlyPlaying t = null;
             try
             {
                 t = await spot.GetCurrentTrackAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                spot.ConnectServ();
-                MessageBox.Show("Spotify Server Error. Reload the token please", "Error");
-                return -1;
+                ForceReloadToken();
             }
             try
             {
@@ -94,24 +86,36 @@ namespace SpotiSplay
             catch(Exception)
             {
                 SetErrors();
-                return -1;
             }
-            return 0;
         }
 
-        private void SpotiForm_Load(object sender, EventArgs e)
+        int connectResult = 1;
+        public async void ForceReloadToken()
         {
-            ActAllStatus();
+            if (connectResult == 1)
+            {
+                connectResult = 0;
+                connectResult = await spot.ConnectServ();
+            }
+        }
+        private async void SpotiForm_Load(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer();
+            tmr.Interval = 1000;   // milliseconds
+            tmr.Tick += Tmr_Tick;  // set handler
+            tmr.Start();
         }
         private void splitMusicTime_SplitterMoved(object sender, SplitterEventArgs e)
         {
             this.MusicNameLabel.MaximumSize = new Size(this.splitMusicTime.Panel1.Width, this.splitMusicTime.Panel1.Height);
             this.MusicTimeLabel.MaximumSize = new Size(this.splitMusicTime.Panel2.Width, this.splitMusicTime.Panel2.Height);
+            parent.SaveParams();
         }
 
         private void splitBig_SplitterMoved(object sender, SplitterEventArgs e)
         {
             this.MusicArtistLabel.MaximumSize = new Size(this.splitBig.Panel1.Width, this.splitBig.Panel1.Height);
+            parent.SaveParams();
         }
 
         private async void MusicNameLabel_TextChanged(object sender, EventArgs e)
@@ -144,10 +148,6 @@ namespace SpotiSplay
                     {
                         this.AlbumPictureBox.Image = bitmap;
                     }
-                }
-                else
-                {
-                    this.AlbumPictureBox.Image = new Bitmap("SpiritBox.jpg");
                 }
             }
             catch

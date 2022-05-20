@@ -56,7 +56,7 @@
             this.MusicNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MusicNameLabel.Location = new System.Drawing.Point(0, 0);
             this.MusicNameLabel.Name = "MusicNameLabel";
-            this.MusicNameLabel.Size = new System.Drawing.Size(39, 15);
+            this.MusicNameLabel.Size = new System.Drawing.Size(47, 20);
             this.MusicNameLabel.TabIndex = 0;
             this.MusicNameLabel.Text = "Music";
             this.MusicNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -68,7 +68,7 @@
             this.MusicArtistLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.MusicArtistLabel.Location = new System.Drawing.Point(0, 0);
             this.MusicArtistLabel.Name = "MusicArtistLabel";
-            this.MusicArtistLabel.Size = new System.Drawing.Size(35, 15);
+            this.MusicArtistLabel.Size = new System.Drawing.Size(44, 20);
             this.MusicArtistLabel.TabIndex = 1;
             this.MusicArtistLabel.Text = "Artist";
             this.MusicArtistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -77,6 +77,7 @@
             // 
             this.splitBigL.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitBigL.Location = new System.Drawing.Point(0, 0);
+            this.splitBigL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitBigL.Name = "splitBigL";
             this.splitBigL.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -87,14 +88,16 @@
             // splitBigL.Panel2
             // 
             this.splitBigL.Panel2.Controls.Add(this.MusicArtistLabel);
-            this.splitBigL.Size = new System.Drawing.Size(194, 118);
-            this.splitBigL.SplitterDistance = 60;
+            this.splitBigL.Size = new System.Drawing.Size(221, 157);
+            this.splitBigL.SplitterDistance = 79;
+            this.splitBigL.SplitterWidth = 5;
             this.splitBigL.TabIndex = 2;
             // 
             // splitMusicTime
             // 
             this.splitMusicTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitMusicTime.Location = new System.Drawing.Point(0, 0);
+            this.splitMusicTime.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitMusicTime.Name = "splitMusicTime";
             // 
             // splitMusicTime.Panel1
@@ -106,8 +109,9 @@
             // 
             this.splitMusicTime.Panel2.Controls.Add(this.MusicTimeLabel);
             this.splitMusicTime.Panel2MinSize = 1;
-            this.splitMusicTime.Size = new System.Drawing.Size(194, 60);
-            this.splitMusicTime.SplitterDistance = 122;
+            this.splitMusicTime.Size = new System.Drawing.Size(221, 79);
+            this.splitMusicTime.SplitterDistance = 131;
+            this.splitMusicTime.SplitterWidth = 5;
             this.splitMusicTime.TabIndex = 1;
             this.splitMusicTime.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitMusicTime_SplitterMoved);
             // 
@@ -115,9 +119,9 @@
             // 
             this.MusicTimeLabel.AutoSize = true;
             this.MusicTimeLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MusicTimeLabel.Location = new System.Drawing.Point(2, 0);
+            this.MusicTimeLabel.Location = new System.Drawing.Point(0, 0);
             this.MusicTimeLabel.Name = "MusicTimeLabel";
-            this.MusicTimeLabel.Size = new System.Drawing.Size(66, 15);
+            this.MusicTimeLabel.Size = new System.Drawing.Size(85, 20);
             this.MusicTimeLabel.TabIndex = 1;
             this.MusicTimeLabel.Text = "00:00/00:00";
             this.MusicTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -126,6 +130,7 @@
             // 
             this.splitBig.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitBig.Location = new System.Drawing.Point(0, 0);
+            this.splitBig.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitBig.Name = "splitBig";
             // 
             // splitBig.Panel1
@@ -135,8 +140,9 @@
             // splitBig.Panel2
             // 
             this.splitBig.Panel2.Controls.Add(this.AlbumPictureBox);
-            this.splitBig.Size = new System.Drawing.Size(318, 118);
-            this.splitBig.SplitterDistance = 194;
+            this.splitBig.Size = new System.Drawing.Size(363, 157);
+            this.splitBig.SplitterDistance = 221;
+            this.splitBig.SplitterWidth = 5;
             this.splitBig.TabIndex = 3;
             this.splitBig.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitBig_SplitterMoved);
             // 
@@ -145,20 +151,20 @@
             this.AlbumPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.AlbumPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AlbumPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.AlbumPictureBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AlbumPictureBox.Name = "AlbumPictureBox";
-            this.AlbumPictureBox.Size = new System.Drawing.Size(120, 118);
+            this.AlbumPictureBox.Size = new System.Drawing.Size(137, 157);
             this.AlbumPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.AlbumPictureBox.TabIndex = 0;
             this.AlbumPictureBox.TabStop = false;
             // 
             // SpotiForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(318, 118);
+            this.ClientSize = new System.Drawing.Size(363, 157);
             this.Controls.Add(this.splitBig);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MinimumSize = new System.Drawing.Size(30, 30);
+            this.MinimumSize = new System.Drawing.Size(32, 47);
             this.Name = "SpotiForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SpotiForm";

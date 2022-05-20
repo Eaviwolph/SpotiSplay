@@ -5,7 +5,7 @@ namespace SpotiSplay
 {
     public class SpotifyServer
     {
-        private static SpotifyClient spotify;
+        private static SpotifyClient? spotify;
         private static EmbedIOAuthServer _server;
 
         public static SpotifyServer Instance { get; } = new SpotifyServer();
@@ -41,7 +41,7 @@ namespace SpotiSplay
             MessageBox.Show($"Aborting authorization, error received: {error}");
             await _server.Stop();
         }
-        public async void ConnectServ()
+        public async Task<int> ConnectServ()
         {
             try
             {
@@ -61,13 +61,23 @@ namespace SpotiSplay
             {
                 MessageBox.Show("Error: " + e.Message);
                 Application.Exit();
+                return 1;
             }
+            return 0;
         }
 
         public async Task<CurrentlyPlaying> GetCurrentTrackAsync()
         {
-            PlayerCurrentlyPlayingRequest c = new PlayerCurrentlyPlayingRequest();
-            var music = await spotify.Player.GetCurrentlyPlaying(c);
+            CurrentlyPlaying music;
+            if (spotify != null)
+            {
+                PlayerCurrentlyPlayingRequest c = new PlayerCurrentlyPlayingRequest();
+                music = await spotify.Player.GetCurrentlyPlaying(c);
+            }
+            else
+            {
+                return null;
+            }
             return music;
         }
 
