@@ -107,13 +107,13 @@ namespace SpotiSplay
         }
         public void splitMusicTime_SplitterMoved(object? sender, SplitterEventArgs? e)
         {
-            this.MusicNameLabel.MaximumSize = new Size(this.splitMusicTime.Panel1.Width, this.splitMusicTime.Panel1.Height);
-            this.MusicTimeLabel.MaximumSize = new Size(this.splitMusicTime.Panel2.Width, this.splitMusicTime.Panel2.Height);
+            this.MusicNameLabel.MaximumSize = new Size(this.splitMusicTime.Panel1.Width - this.splitMusicTime.Panel1.Padding.Left, 3000);
+            this.MusicTimeLabel.MaximumSize = new Size(this.splitMusicTime.Panel2.Width - this.splitMusicTime.Panel2.Padding.Left, 3000);
         }
 
         public void splitBig_SplitterMoved(object? sender, SplitterEventArgs? e)
         {
-            this.MusicArtistLabel.MaximumSize = new Size(this.splitBig.Panel1.Width, this.splitBig.Panel1.Height);
+            this.MusicArtistLabel.MaximumSize = new Size(this.splitBig.Panel1.Width, 3000);
         }
 
         private async void MusicNameLabel_TextChanged(object sender, EventArgs e)
@@ -156,11 +156,15 @@ namespace SpotiSplay
         {
             splitBig_SplitterMoved(null, null);
             splitMusicTime_SplitterMoved(null, null);
-
         }
-        private void SpotiForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        public void SpotiForm_Closing(object? sender, System.ComponentModel.CancelEventArgs? e)
         {
+            if (sender == null)
+            {
+                return;
+            }
             e.Cancel = true;
+            this.Hide();
         }
     }
 }

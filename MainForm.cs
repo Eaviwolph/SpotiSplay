@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace SpotiSplay
 {
     public partial class MainForm : Form
@@ -12,6 +14,7 @@ namespace SpotiSplay
             spot = new SpotifyServer();
             spotiForm = new SpotiForm(spot, this);
             GetParams();
+            Icon = new Icon("Logo_Spotinaz.ico");
         }
 
         public void SaveParams()
@@ -156,14 +159,74 @@ namespace SpotiSplay
             this.foreColorPanel.BackColor = foreColor;
             SaveParams();
         }
-        public void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        public void MainForm_Closing(object? sender, System.ComponentModel.CancelEventArgs? e)
         {
+            if (e.Cancel == true)
+            {
+                e.Cancel = false;
+                return;
+            }
+            this.WindowState = FormWindowState.Minimized;
+            e.Cancel = true;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            SpotiNotif.BalloonTipText = "SpotiSplay";
+            SpotiNotif.BalloonTipTitle = "SpotiSplay";
+            SpotiNotif.ContextMenuStrip = contextMenuStripNotif;
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+                SpotiNotif.Visible = true;
+                SpotiNotif.ShowBalloonTip(1000);
+            }
+        }
+
+        private void SpotiNotif_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ShowInTaskbar = true;
+                SpotiNotif.Visible = false;
+                WindowState = FormWindowState.Normal;
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                SpotiNotif.ContextMenuStrip.Show(Cursor.Position.X, Cursor.Position.Y);
+            }
+        }
+
+        private void StripTextBoxQuit_Click(object sender, EventArgs e)
+        {
+            ShowInTaskbar = true;
+            SpotiNotif.Visible = false;
             if (spotiForm.FormBorderStyle == FormBorderStyle.None)
             {
                 MoveButton_Click(null, null);
             }
             SaveParams();
-            MessageBox.Show("SaveParent", "Save");
+            CancelEventArgs c = new CancelEventArgs();
+            c.Cancel = true;
+            Application.Exit(c);
+        }
+
+        private void LPadUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            spotiForm.splitMusicTime.Panel1.Padding = new Padding((int)LPadUpDown.Value, spotiForm.splitMusicTime.Panel1.Padding.Top, 0, 0);
+            spotiForm.splitBigL.Panel2.Padding = new Padding((int)LPadUpDown.Value, 0, 0, 0);
+            spotiForm.splitMusicTime_SplitterMoved(null, null);
+        }
+
+        private void TPadUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            spotiForm.splitMusicTime.Panel1.Padding = new Padding(spotiForm.splitMusicTime.Panel1.Padding.Left, (int)TPadUpDown.Value, 0, 0);
+            spotiForm.splitMusicTime.Panel2.Padding = new Padding(0, (int)TPadUpDown.Value, 0, 0);
+
         }
     }
 }

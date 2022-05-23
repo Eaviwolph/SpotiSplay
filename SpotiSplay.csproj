@@ -6,7 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageIcon></PackageIcon>
+    <ApplicationIcon>bin\Debug\net6.0-windows\Logo_Spotinaz.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net6.0-windows\Logo_Spotinaz.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SpotifyAPI.Web" Version="6.2.2" />
