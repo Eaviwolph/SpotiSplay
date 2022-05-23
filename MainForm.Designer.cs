@@ -194,6 +194,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_Closing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.backColorPanel.ResumeLayout(false);

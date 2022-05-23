@@ -90,8 +90,8 @@
             this.splitBigL.Panel2.Controls.Add(this.MusicArtistLabel);
             this.splitBigL.Size = new System.Drawing.Size(221, 157);
             this.splitBigL.SplitterDistance = 79;
-            this.splitBigL.SplitterWidth = 5;
             this.splitBigL.TabIndex = 2;
+            this.splitBigL.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitMusicTime_SplitterMoved);
             // 
             // splitMusicTime
             // 
@@ -103,15 +103,12 @@
             // splitMusicTime.Panel1
             // 
             this.splitMusicTime.Panel1.Controls.Add(this.MusicNameLabel);
-            this.splitMusicTime.Panel1MinSize = 1;
             // 
             // splitMusicTime.Panel2
             // 
             this.splitMusicTime.Panel2.Controls.Add(this.MusicTimeLabel);
-            this.splitMusicTime.Panel2MinSize = 1;
             this.splitMusicTime.Size = new System.Drawing.Size(221, 79);
             this.splitMusicTime.SplitterDistance = 131;
-            this.splitMusicTime.SplitterWidth = 5;
             this.splitMusicTime.TabIndex = 1;
             this.splitMusicTime.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitMusicTime_SplitterMoved);
             // 
@@ -119,7 +116,7 @@
             // 
             this.MusicTimeLabel.AutoSize = true;
             this.MusicTimeLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MusicTimeLabel.Location = new System.Drawing.Point(0, 0);
+            this.MusicTimeLabel.Location = new System.Drawing.Point(1, 0);
             this.MusicTimeLabel.Name = "MusicTimeLabel";
             this.MusicTimeLabel.Size = new System.Drawing.Size(85, 20);
             this.MusicTimeLabel.TabIndex = 1;
@@ -142,7 +139,6 @@
             this.splitBig.Panel2.Controls.Add(this.AlbumPictureBox);
             this.splitBig.Size = new System.Drawing.Size(363, 157);
             this.splitBig.SplitterDistance = 221;
-            this.splitBig.SplitterWidth = 5;
             this.splitBig.TabIndex = 3;
             this.splitBig.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitBig_SplitterMoved);
             // 
@@ -153,7 +149,7 @@
             this.AlbumPictureBox.Location = new System.Drawing.Point(0, 0);
             this.AlbumPictureBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AlbumPictureBox.Name = "AlbumPictureBox";
-            this.AlbumPictureBox.Size = new System.Drawing.Size(137, 157);
+            this.AlbumPictureBox.Size = new System.Drawing.Size(138, 157);
             this.AlbumPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.AlbumPictureBox.TabIndex = 0;
             this.AlbumPictureBox.TabStop = false;
@@ -166,10 +162,12 @@
             this.Controls.Add(this.splitBig);
             this.MinimumSize = new System.Drawing.Size(32, 47);
             this.Name = "SpotiForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "SpotiForm";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpotiForm_Closing);
             this.Load += new System.EventHandler(this.SpotiForm_Load);
+            this.Resize += new EventHandler(this.SpotiForm_Resize);
             this.splitBigL.Panel1.ResumeLayout(false);
             this.splitBigL.Panel2.ResumeLayout(false);
             this.splitBigL.Panel2.PerformLayout();

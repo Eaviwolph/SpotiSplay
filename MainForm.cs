@@ -28,49 +28,63 @@ namespace SpotiSplay
         {
             if (File.Exists("params.txt"))
             {
-                //try
-                //{
-                    string[] s = File.ReadAllText("params.txt").Split('\n');
-                    string[] s1 = s[0].Split(',');
-                    string[] s2 = s[1].Split(',');
-                    string[] s3 = s[2].Split(',');
-                    string[] s4 = s[3].Split(',');
-                    string[] s5 = s[4].Split(',');
-                    spotiForm.Location = new Point(int.Parse(s1[0]), int.Parse(s1[1]));
-                    spotiForm.Size = new Size(int.Parse(s1[2]), int.Parse(s1[3]));
-                    backColor = Color.FromArgb(int.Parse(s2[0]), int.Parse(s2[1]), int.Parse(s2[2]));
-                    foreColor = Color.FromArgb(int.Parse(s3[0]), int.Parse(s3[1]), int.Parse(s3[2]));
-                    this.OpacityUpDown.Value = int.Parse(s4[0]);
-                    
-                    spotiForm.splitBig.SplitterDistance = int.Parse(s5[0]);
-                    spotiForm.splitBigL.SplitterDistance = int.Parse(s5[1]);
-                    spotiForm.splitMusicTime.SplitterDistance = int.Parse(s5[2]);
+                string[] s = File.ReadAllText("params.txt").Split('\n');
+                string[] s1 = s[0].Split(',');
+                string[] s2 = s[1].Split(',');
+                string[] s3 = s[2].Split(',');
+                string[] s4 = s[3].Split(',');
+                string[] s5 = s[4].Split(',');
+                spotiForm.Location = new Point(int.Parse(s1[0]), int.Parse(s1[1]));
+                spotiForm.Size = new Size(int.Parse(s1[2]), int.Parse(s1[3]));
+                backColor = Color.FromArgb(int.Parse(s2[0]), int.Parse(s2[1]), int.Parse(s2[2]));
+                foreColor = Color.FromArgb(int.Parse(s3[0]), int.Parse(s3[1]), int.Parse(s3[2]));
+                this.OpacityUpDown.Value = int.Parse(s4[0]);
 
-                    spotiForm.Opacity = ((double)OpacityUpDown.Value) / 100;
-                    this.backColorPanel.BackColor = backColor;
-                    this.foreColorPanel.BackColor = foreColor;
-                    spotiForm.BackColor = backColor;
-                    spotiForm.MusicArtistLabel.ForeColor = foreColor;
-                    spotiForm.MusicNameLabel.ForeColor = foreColor;
-                    spotiForm.MusicTimeLabel.ForeColor = foreColor;
-                //}
-                //catch
-                //{
-                //    MessageBox.Show("Error reading save in params.txt");
-                //}
+                int tmp = int.Parse(s5[0]);
+                if (tmp < spotiForm.splitBig.Panel1MinSize)
+                    tmp = spotiForm.splitBig.Panel1MinSize;
+                if (tmp > spotiForm.splitBig.Width - spotiForm.splitBig.Panel2MinSize)
+                    tmp = spotiForm.splitBig.Width - spotiForm.splitBig.Panel2MinSize;
+                spotiForm.splitBig.SplitterDistance = tmp;
+                tmp = int.Parse(s5[1]);
+                if (tmp < spotiForm.splitBigL.Panel1MinSize)
+                    tmp = spotiForm.splitBigL.Panel1MinSize;
+                if (tmp > spotiForm.splitBigL.Width - spotiForm.splitBigL.Panel2MinSize)
+                    tmp = spotiForm.splitBigL.Width - spotiForm.splitBigL.Panel2MinSize;
+                //spotiForm.splitBigL.SplitterDistance = tmp;
+                tmp = int.Parse(s5[2]);
+                if (tmp < spotiForm.splitMusicTime.Panel1MinSize)
+                    tmp = spotiForm.splitMusicTime.Panel1MinSize;
+                if (tmp > spotiForm.splitMusicTime.Width - spotiForm.splitMusicTime.Panel2MinSize)
+                    tmp = spotiForm.splitMusicTime.Width - spotiForm.splitMusicTime.Panel2MinSize;
+                spotiForm.splitMusicTime.SplitterDistance = tmp;
+
+                spotiForm.Opacity = ((double)OpacityUpDown.Value) / 100;
+                this.backColorPanel.BackColor = backColor;
+                this.foreColorPanel.BackColor = foreColor;
+                spotiForm.BackColor = backColor;
+                spotiForm.MusicArtistLabel.ForeColor = foreColor;
+                spotiForm.MusicNameLabel.ForeColor = foreColor;
+                spotiForm.MusicTimeLabel.ForeColor = foreColor;
+
+                spotiForm.splitBig_SplitterMoved(null, null);
+                spotiForm.splitMusicTime_SplitterMoved(null, null);
             }
         }
 
-        private async void StartDisplay(object sender, EventArgs e)
+        private void StartDisplay(object sender, EventArgs e)
         {
-            MoveButton_Click(null, null);
             try
             {
+                if (spotiForm.FormBorderStyle == FormBorderStyle.Sizable)
+                    MoveButton_Click(null, null);
                 spotiForm.Show();
             }
             catch (Exception)
             {
                 spotiForm = new SpotiForm(spot, this);
+                GetParams();
+                MoveButton_Click(null, null);
                 spotiForm.Show();
             }
         }
@@ -86,7 +100,7 @@ namespace SpotiSplay
             SaveParams();
         }
 
-        private void MoveButton_Click(object sender, EventArgs e)
+        public void MoveButton_Click(object sender, EventArgs e)
         {
             int width = spotiForm.Width;
             int height = spotiForm.Height;
@@ -141,6 +155,15 @@ namespace SpotiSplay
             spotiForm.MusicTimeLabel.ForeColor = foreColor;
             this.foreColorPanel.BackColor = foreColor;
             SaveParams();
+        }
+        public void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (spotiForm.FormBorderStyle == FormBorderStyle.None)
+            {
+                MoveButton_Click(null, null);
+            }
+            SaveParams();
+            MessageBox.Show("SaveParent", "Save");
         }
     }
 }

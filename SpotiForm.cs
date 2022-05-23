@@ -43,12 +43,12 @@ namespace SpotiSplay
         }
         public async void ActAllStatus()
         {
-            CurrentlyPlaying t = null;
+            CurrentlyPlaying? t = null;
             try
             {
                 t = await spot.GetCurrentTrackAsync();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ForceReloadToken();
             }
@@ -98,29 +98,27 @@ namespace SpotiSplay
                 connectResult = await spot.ConnectServ();
             }
         }
-        private async void SpotiForm_Load(object sender, EventArgs e)
+        private void SpotiForm_Load(object sender, EventArgs e)
         {
             System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer();
             tmr.Interval = 1000;   // milliseconds
             tmr.Tick += Tmr_Tick;  // set handler
             tmr.Start();
         }
-        private void splitMusicTime_SplitterMoved(object sender, SplitterEventArgs e)
+        public void splitMusicTime_SplitterMoved(object? sender, SplitterEventArgs? e)
         {
             this.MusicNameLabel.MaximumSize = new Size(this.splitMusicTime.Panel1.Width, this.splitMusicTime.Panel1.Height);
             this.MusicTimeLabel.MaximumSize = new Size(this.splitMusicTime.Panel2.Width, this.splitMusicTime.Panel2.Height);
-            parent.SaveParams();
         }
 
-        private void splitBig_SplitterMoved(object sender, SplitterEventArgs e)
+        public void splitBig_SplitterMoved(object? sender, SplitterEventArgs? e)
         {
             this.MusicArtistLabel.MaximumSize = new Size(this.splitBig.Panel1.Width, this.splitBig.Panel1.Height);
-            parent.SaveParams();
         }
 
         private async void MusicNameLabel_TextChanged(object sender, EventArgs e)
         {
-            CurrentlyPlaying t = null;
+            CurrentlyPlaying? t = null;
             try
             {
                 t = await spot.GetCurrentTrackAsync();
@@ -153,6 +151,16 @@ namespace SpotiSplay
             catch
             {
             }
+        }
+        private void SpotiForm_Resize(object sender, EventArgs e)
+        {
+            splitBig_SplitterMoved(null, null);
+            splitMusicTime_SplitterMoved(null, null);
+
+        }
+        private void SpotiForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }
