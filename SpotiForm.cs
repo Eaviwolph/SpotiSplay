@@ -1,14 +1,4 @@
 ﻿using SpotifyAPI.Web;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SpotiSplay
 {
@@ -22,7 +12,7 @@ namespace SpotiSplay
             this.spot = spot;
             this.parent = parent;
         }
-        
+
         private void Tmr_Tick(object sender, EventArgs e)  //run this logic each timer tick
         {
             ActAllStatus();
@@ -59,7 +49,7 @@ namespace SpotiSplay
                 if (t != null && t.Item != null && t.Item is FullTrack)
                 {
                     f = t.Item as FullTrack;
-                }                
+                }
                 if (t != null && f != null)
                 {
                     this.MusicNameLabel.Text = f.Name;
@@ -83,7 +73,7 @@ namespace SpotiSplay
                     }
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 SetErrors();
             }
@@ -157,14 +147,21 @@ namespace SpotiSplay
             splitBig_SplitterMoved(null, null);
             splitMusicTime_SplitterMoved(null, null);
         }
-        public void SpotiForm_Closing(object? sender, System.ComponentModel.CancelEventArgs? e)
+        public void SpotiForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (sender == null)
+            if (parent.forceQuit)
             {
                 return;
             }
             e.Cancel = true;
             this.Hide();
+        }
+
+        public void UpdateFont(Font f)
+        {
+            this.MusicNameLabel.Font = f;
+            this.MusicArtistLabel.Font = f;
+            this.MusicTimeLabel.Font = f;
         }
     }
 }

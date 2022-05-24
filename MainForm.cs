@@ -8,9 +8,13 @@ namespace SpotiSplay
         private SpotifyServer spot;
         public Color backColor;
         public Color foreColor;
+        public bool forceQuit;
+        public Font font;
         public MainForm()
         {
             InitializeComponent();
+            forceQuit = false;
+            font = new Font(new FontFamily("Segoe UI"), 9);
             spot = new SpotifyServer();
             spotiForm = new SpotiForm(spot, this);
             GetParams();
@@ -23,7 +27,9 @@ namespace SpotiSplay
             s += backColor.R.ToString() + "," + backColor.G.ToString() + "," + backColor.B.ToString() + "\n";
             s += foreColor.R.ToString() + "," + foreColor.G.ToString() + "," + foreColor.B.ToString() + "\n";
             s += this.OpacityUpDown.Value.ToString() + "\n";
-            s += spotiForm.splitBig.SplitterDistance + "," + spotiForm.splitBigL.SplitterDistance + "," + spotiForm.splitMusicTime.SplitterDistance;
+            s += spotiForm.splitBig.SplitterDistance + "," + spotiForm.splitBigL.SplitterDistance + "," + spotiForm.splitMusicTime.SplitterDistance + "\n";
+            s += this.LPadUpDown.Value.ToString() + "," + this.TPadUpDown.Value.ToString() + "\n";
+            s += font.Size + "," + font.FontFamily.Name + ", " + font.Style.ToString() + "\n";
             File.WriteAllText("params.txt", s);
         }
 
@@ -37,6 +43,8 @@ namespace SpotiSplay
                 string[] s3 = s[2].Split(',');
                 string[] s4 = s[3].Split(',');
                 string[] s5 = s[4].Split(',');
+                string[] s6 = s[5].Split(',');
+                string[] s7 = s[6].Split(',');
                 spotiForm.Location = new Point(int.Parse(s1[0]), int.Parse(s1[1]));
                 spotiForm.Size = new Size(int.Parse(s1[2]), int.Parse(s1[3]));
                 backColor = Color.FromArgb(int.Parse(s2[0]), int.Parse(s2[1]), int.Parse(s2[2]));
@@ -61,6 +69,23 @@ namespace SpotiSplay
                 if (tmp > spotiForm.splitMusicTime.Width - spotiForm.splitMusicTime.Panel2MinSize)
                     tmp = spotiForm.splitMusicTime.Width - spotiForm.splitMusicTime.Panel2MinSize;
                 spotiForm.splitMusicTime.SplitterDistance = tmp;
+
+                this.LPadUpDown.Value = int.Parse(s6[0]);
+                this.TPadUpDown.Value = int.Parse(s6[1]);
+                LPadUpDown_ValueChanged(null, null);
+                TPadUpDown_ValueChanged(null, null);
+                FontStyle style = FontStyle.Regular;
+                for (int i = 2; i < s7.Length; i++)
+                {
+                    if (s7[i] == " Bold")
+                        style |= FontStyle.Bold;
+                    if (s7[i] == " Italic")
+                        style |= FontStyle.Italic;
+                    if (s7[i] == " Underline")
+                        style |= FontStyle.Underline;
+                }
+                font = new Font(new FontFamily(s7[1]), float.Parse(s7[0]), style);
+                spotiForm.UpdateFont(font);
 
                 spotiForm.Opacity = ((double)OpacityUpDown.Value) / 100;
                 this.backColorPanel.BackColor = backColor;
@@ -159,11 +184,11 @@ namespace SpotiSplay
             this.foreColorPanel.BackColor = foreColor;
             SaveParams();
         }
-        public void MainForm_Closing(object? sender, System.ComponentModel.CancelEventArgs? e)
+        public void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (e.Cancel == true)
+            if (forceQuit)
             {
-                e.Cancel = false;
+                SpotiNotif.Visible = false;
                 return;
             }
             this.WindowState = FormWindowState.Minimized;
@@ -183,7 +208,6 @@ namespace SpotiSplay
             {
                 ShowInTaskbar = false;
                 SpotiNotif.Visible = true;
-                SpotiNotif.ShowBalloonTip(1000);
             }
         }
 
@@ -210,23 +234,36 @@ namespace SpotiSplay
                 MoveButton_Click(null, null);
             }
             SaveParams();
-            CancelEventArgs c = new CancelEventArgs();
-            c.Cancel = true;
-            Application.Exit(c);
+            forceQuit = true;
+            Application.Exit();
         }
 
-        private void LPadUpDown_ValueChanged(object sender, EventArgs e)
+        private void LPadUpDown_ValueChanged(object? sender, EventArgs? e)
         {
             spotiForm.splitMusicTime.Panel1.Padding = new Padding((int)LPadUpDown.Value, spotiForm.splitMusicTime.Panel1.Padding.Top, 0, 0);
             spotiForm.splitBigL.Panel2.Padding = new Padding((int)LPadUpDown.Value, 0, 0, 0);
             spotiForm.splitMusicTime_SplitterMoved(null, null);
         }
 
-        private void TPadUpDown_ValueChanged(object sender, EventArgs e)
+        private void TPadUpDown_ValueChanged(object? sender, EventArgs? e)
         {
             spotiForm.splitMusicTime.Panel1.Padding = new Padding(spotiForm.splitMusicTime.Panel1.Padding.Left, (int)TPadUpDown.Value, 0, 0);
             spotiForm.splitMusicTime.Panel2.Padding = new Padding(0, (int)TPadUpDown.Value, 0, 0);
+        }
 
+        private void FontButton_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            fontDialog.ShowColor = false;
+            fontDialog.ShowEffects = false;
+
+            fontDialog.Font = spotiForm.MusicNameLabel.Font;
+
+            if (fontDialog.ShowDialog() != DialogResult.Cancel)
+            {
+                font = fontDialog.Font;
+                spotiForm.UpdateFont(font);
+            }
         }
     }
 }
